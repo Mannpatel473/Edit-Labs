@@ -40,8 +40,9 @@
                 rgba(255,255,255,0.1) 18px,
                 rgba(255,255,255,0.1) 20px
             );
-            height: 30px;
+            height: 20px;
             position: relative;
+            opacity: 0.7;
         }
         
         .film-strip::before,
@@ -426,13 +427,14 @@
 </head>
 <body>
 
-    <!-- Film strip top -->
+   <!-- Navigation + Film Strip -->
+<nav class="fixed top-0 w-full z-50 bg-[#0f172a]/95 backdrop-blur-sm border-b border-white/5" id="navbar">
+    
+    <!-- Film strip INSIDE navbar -->
     <div class="film-strip"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-[#0f172a]/95 backdrop-blur-sm border-b border-white/5" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
                 <!-- Logo with favicon -->
                 <div class="flex items-center transform -rotate-1 hover:rotate-0 transition-transform">
                     <div class="flex items-center gap-3">
@@ -483,7 +485,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen pt-32 pb-20 overflow-hidden">
+    <section class="relative min-h-screen pt-40 pb-20 overflow-hidden">
         <!-- Background elements -->
         <div class="absolute top-40 right-0 w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-3xl -z-10"></div>
         <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-500/5 rounded-full blur-3xl -z-10"></div>
