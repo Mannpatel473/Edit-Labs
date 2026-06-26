@@ -867,39 +867,38 @@
 
             <!-- 01 -->
             <div class="group reveal">
-                <!-- Custom Player Wrapper -->
-                <div class="custom-video-player aspect-video rounded-xl mb-4 overflow-hidden relative border border-white/10 bg-zinc-900 shadow-2xl">
-                    <video class="w-full h-full object-cover" loop playsinline poster="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80">
+                <div class="custom-video-player group/player aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5 bg-zinc-900 shadow-xl">
+                    <video class="w-full h-full object-cover cursor-pointer" loop playsinline muted poster="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80">
                         <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
                     </video>
                     
-                    <!-- Center Play Button (Hides when playing) -->
-                    <button class="center-play-btn absolute inset-0 w-full h-full flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-all duration-300 z-10">
-                        <div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 text-white transform group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                            <svg class="w-8 h-8 translate-x-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <!-- Center Play Button (Fades when playing) -->
+                    <div class="center-play absolute inset-0 bg-black/20 flex items-center justify-center transition-opacity duration-300 pointer-events-none">
+                        <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 transform transition-transform duration-300 group-hover/player:scale-110 shadow-lg">
+                            <svg class="w-6 h-6 text-white fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
-                    </button>
+                    </div>
 
-                    <!-- Sleek Bottom Control Bar -->
-                    <div class="control-bar absolute bottom-0 inset-x-0 pt-16 pb-3 px-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-20 flex flex-col gap-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto">
-                        <!-- Timeline/Progress Bar -->
-                        <div class="progress-container w-full h-1.5 bg-white/30 rounded-full cursor-pointer relative overflow-hidden">
-                            <div class="progress-fill absolute top-0 left-0 h-full bg-blue-500 w-0 pointer-events-none transition-all duration-75"></div>
+                    <!-- Attractive Bottom Controls -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 pt-12 opacity-0 translate-y-2 group-hover/player:opacity-100 group-hover/player:translate-y-0 transition-all duration-300 flex items-center gap-4 z-10">
+                        <button class="play-pause-btn text-white hover:text-blue-400 transition-colors focus:outline-none">
+                            <svg class="play-icon w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="pause-icon w-6 h-6 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        </button>
+
+                        <!-- Custom Scrubber -->
+                        <div class="progress-container flex-1 h-1.5 bg-white/20 rounded-full cursor-pointer relative group/progress">
+                            <div class="progress-bar absolute top-0 left-0 h-full bg-blue-500 rounded-full w-0 pointer-events-none"></div>
+                            <div class="progress-thumb absolute top-1/2 -mt-1.5 -ml-1.5 w-3 h-3 bg-white rounded-full shadow scale-0 group-hover/progress:scale-100 transition-transform pointer-events-none" style="left: 0%;"></div>
                         </div>
-                        <!-- Actions -->
-                        <div class="flex items-center justify-between mt-1">
-                            <div class="flex items-center gap-3">
-                                <button class="bottom-play-btn text-white hover:text-blue-400 transition-colors">
-                                    <svg class="play-icon w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                    <svg class="pause-icon w-5 h-5 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                                </button>
-                                <span class="time-display text-xs text-white/90 font-mono tracking-wider">0:00 / 0:00</span>
-                            </div>
-                            <button class="mute-btn text-white hover:text-blue-400 transition-colors">
-                                <svg class="vol-on-icon w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                                <svg class="vol-off-icon w-5 h-5 fill-current hidden" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
-                            </button>
-                        </div>
+
+                        <button class="mute-btn text-white hover:text-blue-400 transition-colors focus:outline-none opacity-50 hover:opacity-100">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                        </button>
+                        
+                        <button class="fullscreen-btn text-white hover:text-blue-400 transition-colors focus:outline-none">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                        </button>
                     </div>
                 </div>
                 <h3 class="font-display font-bold text-lg">Brand Commercial</h3>
@@ -908,34 +907,32 @@
 
             <!-- 02 -->
             <div class="group reveal" style="transition-delay: 100ms;">
-                <div class="custom-video-player aspect-[9/16] max-h-[320px] mx-auto rounded-xl mb-4 overflow-hidden relative border border-white/10 bg-zinc-900 shadow-2xl">
-                    <video class="w-full h-full object-cover" loop playsinline poster="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80">
+                <div class="custom-video-player group/player aspect-[9/16] max-h-[320px] mx-auto rounded-lg mb-4 overflow-hidden relative border border-white/5 bg-zinc-900 shadow-xl">
+                    <video class="w-full h-full object-cover cursor-pointer" loop playsinline muted poster="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80">
                         <source src="https://archive.org/download/choice-mobile/Choice%20Mobile-1.mp4" type="video/mp4">
                     </video>
                     
-                    <button class="center-play-btn absolute inset-0 w-full h-full flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-all duration-300 z-10">
-                        <div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 text-white transform group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                            <svg class="w-8 h-8 translate-x-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <div class="center-play absolute inset-0 bg-black/20 flex items-center justify-center transition-opacity duration-300 pointer-events-none">
+                        <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 transform transition-transform duration-300 group-hover/player:scale-110 shadow-lg">
+                            <svg class="w-6 h-6 text-white fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
-                    </button>
+                    </div>
 
-                    <div class="control-bar absolute bottom-0 inset-x-0 pt-16 pb-3 px-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-20 flex flex-col gap-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto">
-                        <div class="progress-container w-full h-1.5 bg-white/30 rounded-full cursor-pointer relative overflow-hidden">
-                            <div class="progress-fill absolute top-0 left-0 h-full bg-blue-500 w-0 pointer-events-none transition-all duration-75"></div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 pt-12 opacity-0 translate-y-2 group-hover/player:opacity-100 group-hover/player:translate-y-0 transition-all duration-300 flex items-center gap-4 z-10">
+                        <button class="play-pause-btn text-white hover:text-blue-400 transition-colors focus:outline-none">
+                            <svg class="play-icon w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="pause-icon w-6 h-6 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        </button>
+                        <div class="progress-container flex-1 h-1.5 bg-white/20 rounded-full cursor-pointer relative group/progress">
+                            <div class="progress-bar absolute top-0 left-0 h-full bg-blue-500 rounded-full w-0 pointer-events-none"></div>
+                            <div class="progress-thumb absolute top-1/2 -mt-1.5 -ml-1.5 w-3 h-3 bg-white rounded-full shadow scale-0 group-hover/progress:scale-100 transition-transform pointer-events-none" style="left: 0%;"></div>
                         </div>
-                        <div class="flex items-center justify-between mt-1">
-                            <div class="flex items-center gap-3">
-                                <button class="bottom-play-btn text-white hover:text-blue-400 transition-colors">
-                                    <svg class="play-icon w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                    <svg class="pause-icon w-5 h-5 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                                </button>
-                                <span class="time-display text-xs text-white/90 font-mono tracking-wider">0:00 / 0:00</span>
-                            </div>
-                            <button class="mute-btn text-white hover:text-blue-400 transition-colors">
-                                <svg class="vol-on-icon w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                                <svg class="vol-off-icon w-5 h-5 fill-current hidden" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
-                            </button>
-                        </div>
+                        <button class="mute-btn text-white hover:text-blue-400 transition-colors focus:outline-none opacity-50 hover:opacity-100">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                        </button>
+                        <button class="fullscreen-btn text-white hover:text-blue-400 transition-colors focus:outline-none">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                        </button>
                     </div>
                 </div>
                 <h3 class="font-display font-bold text-lg">Instagram Reels Series</h3>
@@ -944,139 +941,118 @@
 
             <!-- 03 -->
             <div class="group reveal" style="transition-delay: 200ms;">
-                <div class="custom-video-player aspect-video rounded-xl mb-4 overflow-hidden relative border border-white/10 bg-zinc-900 shadow-2xl">
-                    <video class="w-full h-full object-cover" loop playsinline poster="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80">
+                <div class="custom-video-player group/player aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5 bg-zinc-900 shadow-xl">
+                    <video class="w-full h-full object-cover cursor-pointer" loop playsinline muted poster="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80">
                         <source src="https://archive.org/download/nx-elite-edit-labs-v-1/NxElite_Edit_Labs_V1.mp4" type="video/mp4">
                     </video>
                     
-                    <button class="center-play-btn absolute inset-0 w-full h-full flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-all duration-300 z-10">
-                        <div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 text-white transform group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                            <svg class="w-8 h-8 translate-x-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <div class="center-play absolute inset-0 bg-black/20 flex items-center justify-center transition-opacity duration-300 pointer-events-none">
+                        <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 transform transition-transform duration-300 group-hover/player:scale-110 shadow-lg">
+                            <svg class="w-6 h-6 text-white fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
-                    </button>
+                    </div>
 
-                    <div class="control-bar absolute bottom-0 inset-x-0 pt-16 pb-3 px-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-20 flex flex-col gap-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto">
-                        <div class="progress-container w-full h-1.5 bg-white/30 rounded-full cursor-pointer relative overflow-hidden">
-                            <div class="progress-fill absolute top-0 left-0 h-full bg-blue-500 w-0 pointer-events-none transition-all duration-75"></div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 pt-12 opacity-0 translate-y-2 group-hover/player:opacity-100 group-hover/player:translate-y-0 transition-all duration-300 flex items-center gap-4 z-10">
+                        <button class="play-pause-btn text-white hover:text-blue-400 transition-colors focus:outline-none">
+                            <svg class="play-icon w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="pause-icon w-6 h-6 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        </button>
+                        <div class="progress-container flex-1 h-1.5 bg-white/20 rounded-full cursor-pointer relative group/progress">
+                            <div class="progress-bar absolute top-0 left-0 h-full bg-blue-500 rounded-full w-0 pointer-events-none"></div>
+                            <div class="progress-thumb absolute top-1/2 -mt-1.5 -ml-1.5 w-3 h-3 bg-white rounded-full shadow scale-0 group-hover/progress:scale-100 transition-transform pointer-events-none" style="left: 0%;"></div>
                         </div>
-                        <div class="flex items-center justify-between mt-1">
-                            <div class="flex items-center gap-3">
-                                <button class="bottom-play-btn text-white hover:text-blue-400 transition-colors">
-                                    <svg class="play-icon w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                    <svg class="pause-icon w-5 h-5 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                                </button>
-                                <span class="time-display text-xs text-white/90 font-mono tracking-wider">0:00 / 0:00</span>
-                            </div>
-                            <button class="mute-btn text-white hover:text-blue-400 transition-colors">
-                                <svg class="vol-on-icon w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                                <svg class="vol-off-icon w-5 h-5 fill-current hidden" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
-                            </button>
-                        </div>
+                        <button class="mute-btn text-white hover:text-blue-400 transition-colors focus:outline-none opacity-50 hover:opacity-100">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                        </button>
+                        <button class="fullscreen-btn text-white hover:text-blue-400 transition-colors focus:outline-none">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                        </button>
                     </div>
                 </div>
                 <h3 class="font-display font-bold text-lg">Motion Graphics Package</h3>
                 <p class="text-gray-400 text-sm">Wedding Invitation • Intro </p>
             </div>
-
-            <!-- NOTE: Copy the inside structure of the `.custom-video-player` from above to replace your other 3 videos as well! To save space, they are omitted but use the exact same template. -->
+            
+            <!-- Cards 04, 05, and 06 would use the exact same structure as 03 above -->
 
         </div>
     </div>
-</section>
 
-<!-- Custom Video Player JavaScript -->
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const players = document.querySelectorAll('.custom-video-player');
+    <!-- Custom Player Javascript logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const players = document.querySelectorAll('.custom-video-player');
+            
+            players.forEach(player => {
+                const video = player.querySelector('video');
+                const playPauseBtn = player.querySelector('.play-pause-btn');
+                const playIcon = player.querySelector('.play-icon');
+                const pauseIcon = player.querySelector('.pause-icon');
+                const centerPlay = player.querySelector('.center-play');
+                const progressContainer = player.querySelector('.progress-container');
+                const progressBar = player.querySelector('.progress-bar');
+                const progressThumb = player.querySelector('.progress-thumb');
+                const muteBtn = player.querySelector('.mute-btn');
+                const fullscreenBtn = player.querySelector('.fullscreen-btn');
 
-        players.forEach(player => {
-            const video = player.querySelector('video');
-            const centerPlayBtn = player.querySelector('.center-play-btn');
-            const bottomPlayBtn = player.querySelector('.bottom-play-btn');
-            const playIcons = player.querySelectorAll('.play-icon');
-            const pauseIcons = player.querySelectorAll('.pause-icon');
-            const muteBtn = player.querySelector('.mute-btn');
-            const volOnIcon = player.querySelector('.vol-on-icon');
-            const volOffIcon = player.querySelector('.vol-off-icon');
-            const progressContainer = player.querySelector('.progress-container');
-            const progressFill = player.querySelector('.progress-fill');
-            const timeDisplay = player.querySelector('.time-display');
+                // Toggle Play/Pause
+                const togglePlay = () => {
+                    if (video.paused) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                };
 
-            // Format Time (e.g., 0:00)
-            const formatTime = (time) => {
-                const minutes = Math.floor(time / 60);
-                const seconds = Math.floor(time % 60);
-                return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-            };
+                // Sync UI with video state
+                video.addEventListener('play', () => {
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                    centerPlay.classList.add('opacity-0');
+                });
 
-            // Toggle Play/Pause
-            const togglePlay = () => {
-                if (video.paused) {
-                    video.play();
-                } else {
-                    video.pause();
-                }
-            };
+                video.addEventListener('pause', () => {
+                    playIcon.classList.remove('hidden');
+                    pauseIcon.classList.add('hidden');
+                    centerPlay.classList.remove('opacity-0');
+                });
 
-            // Event Listeners for Play/Pause
-            centerPlayBtn.addEventListener('click', togglePlay);
-            bottomPlayBtn.addEventListener('click', togglePlay);
-            video.addEventListener('click', togglePlay);
+                // Click event listeners
+                playPauseBtn.addEventListener('click', togglePlay);
+                video.addEventListener('click', togglePlay);
 
-            // Update UI on Play/Pause Events
-            video.addEventListener('play', () => {
-                centerPlayBtn.classList.add('opacity-0', 'pointer-events-none');
-                playIcons.forEach(icon => icon.classList.add('hidden'));
-                pauseIcons.forEach(icon => icon.classList.remove('hidden'));
-            });
+                // Update Progress Bar
+                video.addEventListener('timeupdate', () => {
+                    const percent = (video.currentTime / video.duration) * 100;
+                    progressBar.style.width = `${percent}%`;
+                    progressThumb.style.left = `${percent}%`;
+                });
 
-            video.addEventListener('pause', () => {
-                centerPlayBtn.classList.remove('opacity-0', 'pointer-events-none');
-                playIcons.forEach(icon => icon.classList.remove('hidden'));
-                pauseIcons.forEach(icon => icon.classList.add('hidden'));
-            });
+                // Scrubbing functionality
+                progressContainer.addEventListener('click', (e) => {
+                    const rect = progressContainer.getBoundingClientRect();
+                    const pos = (e.clientX - rect.left) / rect.width;
+                    video.currentTime = pos * video.duration;
+                });
 
-            // Toggle Mute
-            muteBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent video from clicking
-                video.muted = !video.muted;
-                if (video.muted) {
-                    volOnIcon.classList.add('hidden');
-                    volOffIcon.classList.remove('hidden');
-                } else {
-                    volOnIcon.classList.remove('hidden');
-                    volOffIcon.classList.add('hidden');
-                }
-            });
+                // Toggle Mute
+                muteBtn.addEventListener('click', () => {
+                    video.muted = !video.muted;
+                    muteBtn.style.opacity = video.muted ? '0.5' : '1';
+                });
 
-            // Update Progress Bar & Time
-            video.addEventListener('timeupdate', () => {
-                const percent = (video.currentTime / video.duration) * 100;
-                progressFill.style.width = `${percent}%`;
-                
-                if(!isNaN(video.duration)) {
-                    timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
-                }
-            });
-
-            // Load Metadata for initial time
-            video.addEventListener('loadedmetadata', () => {
-                timeDisplay.textContent = `0:00 / ${formatTime(video.duration)}`;
-            });
-
-            // Click on timeline to seek
-            progressContainer.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const rect = progressContainer.getBoundingClientRect();
-                const pos = (e.clientX - rect.left) / progressContainer.offsetWidth;
-                video.currentTime = pos * video.duration;
+                // Toggle Fullscreen
+                fullscreenBtn.addEventListener('click', () => {
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) {
+                        video.webkitRequestFullscreen(); // Safari support
+                    }
+                });
             });
         });
-    });
-</script>
-
-
-
+    </script>
+</section>
     
     <!-- Process Section -->
     <section id="process" class="py-24 bg-[#1e293b]">
