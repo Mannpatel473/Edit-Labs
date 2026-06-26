@@ -745,6 +745,111 @@
         </div>
     </section-->
 
+    <!--section id="work" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Heading ->
+        <div class="mb-16 reveal">
+            <span class="text-blue-400 font-semibold tracking-wider uppercase text-sm scribble-bg inline-block px-2">
+                Portfolio
+            </span>
+            <h2 class="font-display font-bold text-4xl md:text-5xl mt-4">
+                Recent <span class="imperfect-underline">Work</span>
+            </h2>
+        </div>
+
+        <!-- Grid ->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- 01 ->
+            <div class="group reveal">
+                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                    <video class="w-full h-full object-cover"
+                        controls loop playsinline
+                        onmouseover="this.play()" 
+                        onmouseout="this.pause()">
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <h3 class="font-display font-bold text-lg">Brand Commercial</h3>
+                <p class="text-gray-500 text-sm">Product launch video • 60 sec</p>
+            </div>
+
+            <!-- 02 ->
+            <div class="group reveal" style="transition-delay: 100ms;">
+                <div class="video-card aspect-[9/16] max-h-[320px] mx-auto rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                    <video class="w-full h-full object-cover"
+                        controls loop playsinline
+                        onmouseover="this.play()" 
+                        onmouseout="this.pause()">
+                        <source src="https://archive.org/download/choice-mobile/Choice%20Mobile-1.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <h3 class="font-display font-bold text-lg">Instagram Reels Series</h3>
+                <p class="text-gray-500 text-sm">Mobile Accessories • 60 sec Reels</p>
+            </div>
+
+            <!-- 03 ->
+            <div class="group reveal" style="transition-delay: 200ms;">
+                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                    <video class="w-full h-full object-cover"
+                        controls loop playsinline
+                        onmouseover="this.play()" 
+                        onmouseout="this.pause()">
+                        <source src="https://archive.org/download/nx-elite-edit-labs-v-1/NxElite_Edit_Labs_V1.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <h3 class="font-display font-bold text-lg">Motion Graphics Package</h3>
+                <p class="text-gray-500 text-sm">Wedding Invitation • Intro </p>
+            </div>
+
+            <!-- 04 ->
+            <div class="group reveal" style="transition-delay: 300ms;">
+                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                    <video class="w-full h-full object-cover"
+                        controls loop playsinline
+                        onmouseover="this.play()" 
+                        onmouseout="this.pause()">
+                        <source src="https://archive.org/download/dhruv-maitri/Dhruv%26Maitri.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <h3 class="font-display font-bold text-lg">Event Aftermovie</h3>
+                <p class="text-gray-500 text-sm">Wedding Event • 3 min</p>
+            </div>
+
+            <!-- 05 ->
+            <div class="group reveal" style="transition-delay: 400ms;">
+                <div class="video-card aspect-[4/5] max-h-[320px] mx-auto rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                    <video class="w-full h-full object-cover"
+                        controls loop playsinline
+                        onmouseover="this.play()" 
+                        onmouseout="this.pause()">
+                        <source src="videos/video5.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <h3 class="font-display font-bold text-lg">Ad Campaign Design</h3>
+                <p class="text-gray-500 text-sm">Social media posters • 15 designs</p>
+            </div>
+
+            <!-- 06 ->
+            <div class="group reveal" style="transition-delay: 500ms;">
+                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                    <video class="w-full h-full object-cover"
+                        controls loop playsinline
+                        onmouseover="this.play()" 
+                        onmouseout="this.pause()">
+                        <source src="videos/video6.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <h3 class="font-display font-bold text-lg">Documentary Short</h3>
+                <p class="text-gray-500 text-sm">Non-profit • 8 min</p>
+            </div>
+
+        </div>
+    </div>
+</section-->
+
+
     <section id="work" class="py-24 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -763,13 +868,24 @@
 
             <!-- 01 -->
             <div class="group reveal">
-                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                <!-- Added relative and cursor-pointer for custom control overlay -->
+                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5 cursor-pointer" onclick="togglePlay(this)">
+                    <!-- Added poster image -->
                     <video class="w-full h-full object-cover"
-                        controls loop playsinline
-                        onmouseover="this.play()" 
-                        onmouseout="this.pause()">
+                        loop playsinline muted
+                        poster="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80"
+                        onmouseover="this.play(); this.nextElementSibling.classList.add('opacity-0')" 
+                        onmouseout="this.pause(); this.nextElementSibling.classList.remove('opacity-0')">
                         <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
                     </video>
+                    <!-- Custom Controls Overlay -->
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 pointer-events-none group-hover:bg-black/10">
+                        <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white transform transition-transform group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 ml-0.5" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
                 <h3 class="font-display font-bold text-lg">Brand Commercial</h3>
                 <p class="text-gray-500 text-sm">Product launch video • 60 sec</p>
@@ -777,13 +893,21 @@
 
             <!-- 02 -->
             <div class="group reveal" style="transition-delay: 100ms;">
-                <div class="video-card aspect-[9/16] max-h-[320px] mx-auto rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                <div class="video-card aspect-[9/16] max-h-[320px] mx-auto rounded-lg mb-4 overflow-hidden relative border border-white/5 cursor-pointer" onclick="togglePlay(this)">
                     <video class="w-full h-full object-cover"
-                        controls loop playsinline
-                        onmouseover="this.play()" 
-                        onmouseout="this.pause()">
+                        loop playsinline muted
+                        poster="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+                        onmouseover="this.play(); this.nextElementSibling.classList.add('opacity-0')" 
+                        onmouseout="this.pause(); this.nextElementSibling.classList.remove('opacity-0')">
                         <source src="https://archive.org/download/choice-mobile/Choice%20Mobile-1.mp4" type="video/mp4">
                     </video>
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 pointer-events-none group-hover:bg-black/10">
+                        <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white transform transition-transform group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 ml-0.5" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
                 <h3 class="font-display font-bold text-lg">Instagram Reels Series</h3>
                 <p class="text-gray-500 text-sm">Mobile Accessories • 60 sec Reels</p>
@@ -791,13 +915,21 @@
 
             <!-- 03 -->
             <div class="group reveal" style="transition-delay: 200ms;">
-                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5 cursor-pointer" onclick="togglePlay(this)">
                     <video class="w-full h-full object-cover"
-                        controls loop playsinline
-                        onmouseover="this.play()" 
-                        onmouseout="this.pause()">
+                        loop playsinline muted
+                        poster="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
+                        onmouseover="this.play(); this.nextElementSibling.classList.add('opacity-0')" 
+                        onmouseout="this.pause(); this.nextElementSibling.classList.remove('opacity-0')">
                         <source src="https://archive.org/download/nx-elite-edit-labs-v-1/NxElite_Edit_Labs_V1.mp4" type="video/mp4">
                     </video>
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 pointer-events-none group-hover:bg-black/10">
+                        <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white transform transition-transform group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 ml-0.5" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
                 <h3 class="font-display font-bold text-lg">Motion Graphics Package</h3>
                 <p class="text-gray-500 text-sm">Wedding Invitation • Intro </p>
@@ -805,13 +937,21 @@
 
             <!-- 04 -->
             <div class="group reveal" style="transition-delay: 300ms;">
-                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5 cursor-pointer" onclick="togglePlay(this)">
                     <video class="w-full h-full object-cover"
-                        controls loop playsinline
-                        onmouseover="this.play()" 
-                        onmouseout="this.pause()">
+                        loop playsinline muted
+                        poster="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80"
+                        onmouseover="this.play(); this.nextElementSibling.classList.add('opacity-0')" 
+                        onmouseout="this.pause(); this.nextElementSibling.classList.remove('opacity-0')">
                         <source src="https://archive.org/download/dhruv-maitri/Dhruv%26Maitri.mp4" type="video/mp4">
                     </video>
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 pointer-events-none group-hover:bg-black/10">
+                        <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white transform transition-transform group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 ml-0.5" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
                 <h3 class="font-display font-bold text-lg">Event Aftermovie</h3>
                 <p class="text-gray-500 text-sm">Wedding Event • 3 min</p>
@@ -819,13 +959,21 @@
 
             <!-- 05 -->
             <div class="group reveal" style="transition-delay: 400ms;">
-                <div class="video-card aspect-[4/5] max-h-[320px] mx-auto rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                <div class="video-card aspect-[4/5] max-h-[320px] mx-auto rounded-lg mb-4 overflow-hidden relative border border-white/5 cursor-pointer" onclick="togglePlay(this)">
                     <video class="w-full h-full object-cover"
-                        controls loop playsinline
-                        onmouseover="this.play()" 
-                        onmouseout="this.pause()">
+                        loop playsinline muted
+                        poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
+                        onmouseover="this.play(); this.nextElementSibling.classList.add('opacity-0')" 
+                        onmouseout="this.pause(); this.nextElementSibling.classList.remove('opacity-0')">
                         <source src="videos/video5.mp4" type="video/mp4">
                     </video>
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 pointer-events-none group-hover:bg-black/10">
+                        <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white transform transition-transform group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 ml-0.5" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
                 <h3 class="font-display font-bold text-lg">Ad Campaign Design</h3>
                 <p class="text-gray-500 text-sm">Social media posters • 15 designs</p>
@@ -833,13 +981,21 @@
 
             <!-- 06 -->
             <div class="group reveal" style="transition-delay: 500ms;">
-                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5">
+                <div class="video-card aspect-video rounded-lg mb-4 overflow-hidden relative border border-white/5 cursor-pointer" onclick="togglePlay(this)">
                     <video class="w-full h-full object-cover"
-                        controls loop playsinline
-                        onmouseover="this.play()" 
-                        onmouseout="this.pause()">
+                        loop playsinline muted
+                        poster="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=80"
+                        onmouseover="this.play(); this.nextElementSibling.classList.add('opacity-0')" 
+                        onmouseout="this.pause(); this.nextElementSibling.classList.remove('opacity-0')">
                         <source src="videos/video6.mp4" type="video/mp4">
                     </video>
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 pointer-events-none group-hover:bg-black/10">
+                        <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white transform transition-transform group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 ml-0.5" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
                 <h3 class="font-display font-bold text-lg">Documentary Short</h3>
                 <p class="text-gray-500 text-sm">Non-profit • 8 min</p>
@@ -848,6 +1004,23 @@
         </div>
     </div>
 </section>
+
+<!-- Include this light script before your closing body tag to handle the click alternative -->
+<script>
+function togglePlay(card) {
+    const video = card.querySelector('video');
+    const overlay = card.querySelector('.absolute');
+    
+    if (video.paused) {
+        video.play();
+        overlay.classList.add('opacity-0');
+    } else {
+        video.pause();
+        overlay.classList.remove('opacity-0');
+    }
+}
+</script>
+    
 
     <!-- Process Section -->
     <section id="process" class="py-24 bg-[#1e293b]">
