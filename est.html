@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Estimate · NxElite Edit Labs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;700;800;900&display=swap">
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #0a0a0a;
+  --text-soft: rgba(0,0,0,0.7);
+  --text-mute: rgba(0,0,0,0.5);
+  --text-faint: rgba(0,0,0,0.3);
+  --line: rgba(0,0,0,0.12);
+  --line-soft: rgba(0,0,0,0.06);
+  --accent: rgba(200,170,130,1);
+  --accent-soft: rgba(200,170,130,0.22);
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --sans: 'Inter', system-ui, sans-serif;
+  --ease-quiet: cubic-bezier(.22, 1, .36, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-image: radial-gradient(rgba(0,0,0,0.045) 1px, transparent 1px);
+  background-size: 22px 22px;
+  padding: 3rem 2rem 5rem;
+  min-height: 100vh;
+}
+
+.doc {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  position: relative;
+  box-shadow: 0 30px 60px -30px rgba(0,0,0,0.08);
+}
+.doc::before, .doc::after,
+.doc .tick-tr, .doc .tick-bl {
+  content: '';
+  position: absolute;
+  width: 14px; height: 14px;
+  border: 1px solid var(--text);
+}
+.doc::before { top: -7px; left: -7px; border-right: none; border-bottom: none; }
+.doc::after  { bottom: -7px; right: -7px; border-left: none; border-top: none; }
+.doc .tick-tr { top: -7px; right: -7px; border-left: none; border-bottom: none; }
+.doc .tick-bl { bottom: -7px; left: -7px; border-right: none; border-top: none; }
+
+/* Header */
+.doc-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  padding: 2.75rem 3rem 2rem;
+  border-bottom: 1px solid var(--line);
+  gap: 2rem;
+}
+.brand { display: flex; align-items: center; gap: 1.1rem; }
+.brand img { width: 54px; height: 54px; display: block; object-fit: contain; }
+.brand-text h1 {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.brand-text p {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-top: 0.4rem;
+}
+.doc-meta { text-align: right; }
+.doc-meta .stamp {
+  display: inline-block;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--text);
+  color: var(--text);
+  text-transform: uppercase;
+}
+.doc-meta .meta-row {
+  margin-top: 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.6rem;
+}
+.doc-meta .meta-row span { color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.62rem; }
+.doc-meta input {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--line);
+  text-align: right;
+  padding: 0.15rem 0.3rem;
+  width: 150px;
+  color: var(--text);
+}
+.doc-meta input:focus { outline: none; border-bottom-color: var(--accent); }
+
+/* Parties */
+.parties {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--line);
+}
+.party { padding: 1.75rem 3rem; }
+.party:first-child { border-right: 1px solid var(--line); }
+.party .label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-bottom: 0.7rem;
+}
+.party .name {
+  font-weight: 700;
+  font-size: 1.02rem;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.01em;
+}
+.party [contenteditable] {
+  outline: none;
+  padding: 0.1rem 0.25rem;
+  border-radius: 2px;
+  transition: background 0.3s var(--ease-quiet);
+}
+.party [contenteditable]:focus { background: var(--accent-soft); }
+.party .muted { color: var(--text-mute); font-size: 0.82rem; line-height: 1.6; }
+
+/* Section title */
+.section-title {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  padding: 2.5rem 3rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* Services */
+.services { padding: 0 3rem; }
+.services-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.services-table thead th {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  text-align: left;
+  padding: 0.7rem 0.5rem;
+  border-bottom: 1px solid var(--text);
+}
+.services-table thead th.num { text-align: right; }
+.services-table tbody tr {
+  border-bottom: 1px solid var(--line-soft);
+  transition: background 0.3s var(--ease-quiet);
+  page-break-inside: avoid;
+}
+.services-table tbody tr:hover { background: rgba(200,170,130,0.06); }
+.services-table tbody td { padding: 0.95rem 0.5rem; vertical-align: middle; }
+.services-table .idx {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-mute);
+  width: 40px;
+}
+.services-table .svc { font-weight: 500; letter-spacing: -0.005em; }
+.services-table .svc .desc {
+  font-size: 0.72rem;
+  color: var(--text-mute);
+  margin-top: 0.15rem;
+  font-weight: 400;
+}
+.services-table .svc [contenteditable]:focus { background: var(--accent-soft); outline: none; border-radius: 2px; padding: 0.05rem 0.2rem; }
+.services-table .dur {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  letter-spacing: 0.04em;
+}
+.services-table input {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed transparent;
+  padding: 0.2rem 0.3rem;
+  color: var(--text);
+  width: 90px;
+  text-align: right;
+  transition: border-color 0.3s var(--ease-quiet);
+}
+.services-table input.qty { width: 50px; text-align: center; }
+.services-table input:focus { outline: none; border-bottom-color: var(--accent); }
+.services-table input[type="number"]::-webkit-outer-spin-button,
+.services-table input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.services-table input[type="number"] { -moz-appearance: textfield; }
+.services-table .amt {
+  font-family: var(--mono);
+  font-weight: 500;
+  text-align: right;
+  width: 110px;
+  font-size: 0.88rem;
+}
+.services-table .remove { width: 36px; text-align: center; }
+.services-table .remove button {
+  background: none;
+  border: 1px solid var(--line);
+  width: 22px; height: 22px;
+  cursor: pointer;
+  color: var(--text-mute);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1;
+  transition: all 0.3s var(--ease-quiet);
+}
+.services-table .remove button:hover { border-color: var(--text); color: var(--text); }
+
+.add-service {
+  margin-top: 1.1rem;
+  padding: 0.85rem 1rem;
+  border: 1px dashed var(--line);
+  background: transparent;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s var(--ease-quiet);
+}
+.add-service:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(200,170,130,0.06);
+}
+
+/* Summary */
+.summary {
+  margin-top: 1.5rem;
+  padding: 0 3rem;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 3rem;
+  align-items: start;
+}
+.excl-head {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+.excl-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: start;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+.excl-item:last-child { border-bottom: none; }
+.excl-num {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--text-mute);
+  padding-top: 0.15rem;
+  letter-spacing: 0.1em;
+}
+
+.totals {
+  border-top: 2px solid var(--text);
+  padding-top: 1rem;
+}
+.totals .row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 0.55rem 0;
+  font-family: var(--mono);
+}
+.totals .row .lbl {
+  color: var(--text-mute);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.totals .row .val {
+  text-align: right;
+  font-size: 0.88rem;
+}
+.totals .row input {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--line);
+  text-align: right;
+  width: 90px;
+  color: var(--text);
+  padding: 0.15rem 0.2rem;
+}
+.totals .row input:focus { outline: none; border-bottom-color: var(--accent); }
+.totals .row input[type="number"]::-webkit-outer-spin-button,
+.totals .row input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.totals .row.total {
+  border-top: 1px solid var(--text);
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  align-items: baseline;
+}
+.totals .row.total .lbl {
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.totals .row.total .val {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.totals .row.total .val .currency {
+  font-size: 0.85rem;
+  color: var(--text-mute);
+  margin-right: 0.25rem;
+  font-weight: 400;
+}
+
+/* Notes */
+.notes {
+  margin-top: 2.5rem;
+  padding: 2.25rem 3rem 2.75rem;
+  border-top: 1px solid var(--line);
+  background: rgba(0,0,0,0.018);
+}
+.notes .label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-bottom: 0.9rem;
+}
+.notes p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-soft);
+  max-width: 62ch;
+}
+.notes .signature {
+  margin-top: 2.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 2rem;
+}
+.sig-block { font-family: var(--mono); font-size: 0.72rem; }
+.sig-block.right { text-align: right; }
+.sig-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.sig-line {
+  margin-top: 0.5rem;
+  padding-top: 0.3rem;
+  border-top: 1px solid var(--text);
+  width: 220px;
+}
+
+/* Actions */
+.actions {
+  max-width: 1100px;
+  margin: 2rem auto 0;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+.btn {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  border: 1px solid var(--text);
+  background: var(--text);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-quiet);
+}
+.btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--text);
+}
+.btn.outline {
+  background: transparent;
+  color: var(--text);
+}
+.btn.outline:hover { background: var(--text); color: #fff; border-color: var(--text); }
+
+/* Entrance */
+.fade-in {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 1s var(--ease-quiet), transform 1s var(--ease-quiet);
+}
+.fade-in.is-in { opacity: 1; transform: none; }
+
+/* Print */
+@media print {
+  body { padding: 0; background: #fff !important; background-image: none !important; }
+  .actions { display: none !important; }
+  .doc { border: none; max-width: 100%; box-shadow: none; }
+  .doc::before, .doc::after, .doc .tick-tr, .doc .tick-bl { display: none; }
+  .services-table input, .doc-meta input, .party [contenteditable],
+  .totals input { border: none !important; }
+  .add-service, .remove { display: none !important; }
+  .notes { background: none; }
+  .services-table tbody tr { page-break-inside: avoid; }
+  @page { margin: 1.5cm; }
+}
+
+@media (max-width: 800px) {
+  body { padding: 1rem; }
+  .doc-header, .parties, .summary { grid-template-columns: 1fr; }
+  .party:first-child { border-right: none; border-bottom: 1px solid var(--line); }
+  .doc-header, .party, .section-title, .services, .summary, .notes { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .summary { gap: 2rem; }
+  .services-table { font-size: 0.78rem; }
+  .services-table .svc .desc { display: none; }
+  .services-table .dur { display: none; }
+  .services-table input { width: 70px; }
+  .notes .signature { flex-direction: column; align-items: flex-start; }
+  .sig-block.right { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<article class="doc fade-in">
+  <span class="tick-tr"></span>
+  <span class="tick-bl"></span>
+
+  <!-- Header -->
+  <header class="doc-header">
+    <div class="brand">
+      <img src="https://edit-labs.nxelite.in/img/logo.png" alt="NxElite Edit Labs">
+      <div class="brand-text">
+        <h1>NxElite Edit Labs</h1>
+        <p>Reel Production · Editorial Studio</p>
+      </div>
+    </div>
+    <div class="doc-meta">
+      <div class="stamp">Estimate</div>
+      <div class="meta-row"><span>No.</span> <input type="text" value="EST-2025-014"></div>
+      <div class="meta-row"><span>Date</span> <input type="text" value="14 · 11 · 2025"></div>
+      <div class="meta-row"><span>Valid Until</span> <input type="text" value="28 · 11 · 2025"></div>
+    </div>
+  </header>
+
+  <!-- Parties -->
+  <section class="parties">
+    <div class="party">
+      <div class="label">From</div>
+      <div class="name">NxElite Edit Labs</div>
+      <div class="muted" contenteditable="true">Edit Labs, Studio 04<br>Bengaluru, IN 560001<br>hello@nxelite.in · +91 90000 00000</div>
+    </div>
+    <div class="party">
+      <div class="label">Bill To</div>
+      <div class="name" contenteditable="true">Client Name</div>
+      <div class="muted" contenteditable="true">Company / Handle<br>Address Line, City<br>Email · Phone</div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <div class="section-title">Services & Scope</div>
+  <section class="services">
+    <table class="services-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Service</th>
+          <th>Duration</th>
+          <th class="num">Rate (₹)</th>
+          <th class="num">Qty</th>
+          <th class="num">Amount (₹)</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="svc-body">
+        <tr>
+          <td class="idx">01</td>
+          <td class="svc"><div contenteditable="true">Reel Shooting</div><div class="desc" contenteditable="true">On-location, single-camera, 3-4 hours</div></td>
+          <td class="dur" contenteditable="true">3-4 Hrs</td>
+          <td><input type="number" class="rate" value="1000" min="0"></td>
+          <td><input type="number" class="qty" value="1" min="0"></td>
+          <td class="amt">1,000</td>
+          <td class="remove"><button data-action="remove" title="Zero out">×</button></td>
+        </tr>
+        <tr>
+          <td class="idx">02</td>
+          <td class="svc"><div contenteditable="true">Professional Editing</div><div class="desc" contenteditable="true">Cut, color, sound, captions, export</div></td>
+          <td class="dur" contenteditable="true">—</td>
+          <td><input type="number" class="rate" value="500" min="0"></td>
+          <td><input type="number" class="qty" value="1" min="0"></td>
+          <td class="amt">500</td>
+          <td class="remove"><button data-action="remove">×</button></td>
+        </tr>
+        <tr>
+          <td class="idx">03</td>
+          <td class="svc"><div contenteditable="true">Raw Footage Handover</div><div class="desc" contenteditable="true">All unedited clips via drive link</div></td>
+          <td class="dur" contenteditable="true">—</td>
+          <td><input type="number" class="rate" value="500" min="0"></td>
+          <td><input type="number" class="qty" value="0" min="0"></td>
+          <td class="amt">0</td>
+          <td class="remove"><button data-action="remove">×</button></td>
+        </tr>
+        <tr>
+          <td class="idx">04</td>
+          <td class="svc"><div contenteditable="true">Color Grading</div><div class="desc" contenteditable="true">Cinematic LUT & per-shot correction</div></td>
+          <td class="dur" contenteditable="true">—</td>
+          <td><input type="number" class="rate" value="400" min="0"></td>
+          <td><input type="number" class="qty" value="0" min="0"></td>
+          <td class="amt">0</td>
+          <td class="remove"><button data-action="remove">×</button></td>
+        </tr>
+        <tr>
+          <td class="idx">05</td>
+          <td class="svc"><div contenteditable="true">Background Music & SFX</div><div class="desc" contenteditable="true">Licensed track + sound design</div></td>
+          <td class="dur" contenteditable="true">—</td>
+          <td><input type="number" class="rate" value="300" min="0"></td>
+          <td><input type="number" class="qty" value="0" min="0"></td>
+          <td class="amt">0</td>
+          <td class="remove"><button data-action="remove">×</button></td>
+        </tr>
+        <tr>
+          <td class="idx">06</td>
+          <td class="svc"><div contenteditable="true">Motion Graphics (Basic)</div><div class="desc" contenteditable="true">Intro / outro / lower-thirds</div></td>
+          <td class="dur" contenteditable="true">—</td>
+          <td><input type="number" class="rate" value="600" min="0"></td>
+          <td><input type="number" class="qty" value="0" min="0"></td>
+          <td class="amt">0</td>
+          <td class="remove"><button data-action="remove">×</button></td>
+        </tr>
+        <tr>
+          <td class="idx">07</td>
+          <td class="svc"><div contenteditable="true">Subtitles / Captions</div><div class="desc" contenteditable="true">Manual transcription & burn-in</div></td>
+          <td class="dur" contenteditable="true">—</td>
+          <td><input type="number" class="rate" value="300" min="0"></td>
+          <td><input type="number" class="qty" value="0" min="0"></td>
+          <td class="amt">0</td>
+          <td class="remove"><button data-action="remove">×</button></td>
+        </tr>
+        <tr>
+          <td class="idx">08</td>
+          <td class="svc"><div contenteditable="true">Thumbnail Design</div><div class="desc" contenteditable="true">Custom cover frame for the reel</div></td>
+          <td class="dur" contenteditable="true">—</td>
+          <td><input type="number" class="rate" value="200" min="0"></td>
+          <td><input type="number" class="qty" value="0" min="0"></td>
+          <td class="amt">0</td>
+          <td class="remove"><button data-action="remove">×</button></td>
+        </tr>
+        <tr>
+          <td class="idx">09</td>
+          <td class="svc"><div contenteditable="true">Express Delivery (24 hrs)</div><div class="desc" contenteditable="true">Priority queue, same-day rough cut</div></td>
+          <td class="dur" contenteditable="true">—</td>
+          <td><input type="number" class="rate" value="400" min="0"></td>
+          <td><input type="number" class="qty" value="0" min="0"></td>
+          <td class="amt">0</td>
+          <td class="remove"><button data-action="remove">×</button></td>
+        </tr>
+        <tr>
+          <td class="idx">10</td>
+          <td class="svc"><div contenteditable="true">Additional Revisions</div><div class="desc" contenteditable="true">Beyond 2 free revision rounds</div></td>
+          <td class="dur" contenteditable="true">—</td>
+          <td><input type="number" class="rate" value="150" min="0"></td>
+          <td><input type="number" class="qty" value="0" min="0"></td>
+          <td class="amt">0</td>
+          <td class="remove"><button data-action="remove">×</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="add-service" data-action="add">+ Add Custom Service</button>
+  </section>
+
+  <!-- Summary -->
+  <div class="section-title">Summary & Exclusions</div>
+  <section class="summary">
+    <div class="summary-left">
+      <div class="excl-head">Exclusions — not part of this estimate</div>
+      <div class="excl-item">
+        <div class="excl-num">01</div>
+        <div>Anchor / on-camera presenter is not included. Can be arranged on request at additional cost.</div>
+      </div>
+      <div class="excl-item">
+        <div class="excl-num">02</div>
+        <div>Script writing and concept development are excluded. Footage is shot to a client-supplied brief.</div>
+      </div>
+      <div class="excl-item">
+        <div class="excl-num">03</div>
+        <div>Travelling, lodging, and venue expenses are not included. Billed at actuals if applicable.</div>
+      </div>
+      <div class="excl-item">
+        <div class="excl-num">04</div>
+        <div>Equipment rental beyond the standard kit, props, wardrobe, and talent fees are chargeable separately.</div>
+      </div>
+    </div>
+    <div class="totals">
+      <div class="row">
+        <div class="lbl">Subtotal</div>
+        <div class="val">₹ <span id="subtotal">1,500</span></div>
+      </div>
+      <div class="row">
+        <div class="lbl">Tax / GST</div>
+        <div class="val">₹ <input type="number" id="tax" value="0" min="0"></div>
+      </div>
+      <div class="row">
+        <div class="lbl">Discount</div>
+        <div class="val">₹ <input type="number" id="discount" value="0" min="0"></div>
+      </div>
+      <div class="row total">
+        <div class="lbl">Total Amount</div>
+        <div class="val"><span class="currency">₹</span><span id="total">1,500</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notes -->
+  <section class="notes">
+    <div class="label">Note from the studio</div>
+    <p>Thank you for choosing NxElite Edit Labs. We look forward to delivering high-quality reel production with a professional finish. Two rounds of revisions are included; turnaround is 3–5 working days from shoot wrap. 50% advance to lock shoot dates, balance on delivery. All previews are watermarked until final payment clears.</p>
+    <div class="signature">
+      <div class="sig-block">
+        <div class="sig-label">Authorised by</div>
+        <div class="sig-line"></div>
+      </div>
+      <div class="sig-block right">
+        <div class="sig-label">For NxElite Edit Labs</div>
+        <div class="sig-line"></div>
+      </div>
+    </div>
+  </section>
+
+</article>
+
+<div class="actions">
+  <button class="btn outline" onclick="window.location.reload()">Reset</button>
+  <button class="btn" onclick="window.print()">Download PDF</button>
+</div>
+
+<script>
+const fmt = n => Number(n || 0).toLocaleString('en-IN');
+
+function recalc() {
+  let subtotal = 0;
+  document.querySelectorAll('#svc-body tr').forEach((tr, i) => {
+    const rate = parseFloat(tr.querySelector('.rate')?.value || 0);
+    const qty = parseFloat(tr.querySelector('.qty')?.value || 0);
+    const amt = rate * qty;
+    const amtCell = tr.querySelector('.amt');
+    if (amtCell) amtCell.textContent = fmt(amt);
+    subtotal += amt;
+    const idx = tr.querySelector('.idx');
+    if (idx) idx.textContent = String(i + 1).padStart(2, '0');
+  });
+  const tax = parseFloat(document.getElementById('tax')?.value || 0);
+  const discount = parseFloat(document.getElementById('discount')?.value || 0);
+  const total = Math.max(0, subtotal + tax - discount);
+  document.getElementById('subtotal').textContent = fmt(subtotal);
+  document.getElementById('total').textContent = fmt(total);
+}
+
+document.addEventListener('input', e => {
+  if (e.target.matches('.rate, .qty, #tax, #discount')) recalc();
+});
+
+document.addEventListener('click', e => {
+  if (e.target.matches('[data-action="remove"]')) {
+    const tr = e.target.closest('tr');
+    if (tr) {
+      const rate = tr.querySelector('.rate');
+      const qty = tr.querySelector('.qty');
+      if (rate) rate.value = 0;
+      if (qty) qty.value = 0;
+      recalc();
+    }
+  }
+  if (e.target.matches('[data-action="add"]')) {
+    const tbody = document.getElementById('svc-body');
+    const n = tbody.children.length + 1;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="idx">${String(n).padStart(2,'0')}</td>
+      <td class="svc"><div contenteditable="true">Custom Service</div><div class="desc" contenteditable="true">Notes / scope</div></td>
+      <td class="dur" contenteditable="true">—</td>
+      <td><input type="number" class="rate" value="0" min="0"></td>
+      <td><input type="number" class="qty" value="0" min="0"></td>
+      <td class="amt">0</td>
+      <td class="remove"><button data-action="remove">×</button></td>
+    `;
+    tbody.appendChild(tr);
+    recalc();
+  }
+});
+
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-in'); });
+}, { threshold: 0.05 });
+document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+recalc();
+</script>
+</body>
+</html>
